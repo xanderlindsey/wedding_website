@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schedule — Ella & Xander</title>
+  <style>
+/* ─── FONT IMPORTS ─────────────────────────────────────────────
+   Place Amoresa & Bantayog font files in the /fonts/ folder.   */
+@font-face {
+  font-family: 'Amoresa';
+  src: url('fonts/Amoresa.woff2') format('woff2'),
+       url('fonts/Amoresa.woff') format('woff'),
+       url('fonts/Amoresa.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Bantayog';
+  src: url('fonts/Bantayog.woff2') format('woff2'),
+       url('fonts/Bantayog.woff') format('woff'),
+       url('fonts/Bantayog.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ─── CSS VARIABLES ─────────────────────────────────────────── */
+:root {
+  --olive:       #6B7A3E;
+  --olive-dark:  #4e5a2c;
+  --olive-light: #8a9a52;
+  --cream:       #F5F0E8;
+  --cream-dark:  #EDE6D8;
+  --cream-mid:   #F0EAE0;
+  --white:       #FDFAF5;
+  --script:      'Amoresa', 'Great Vibes', cursive;
+  --sans:        'Bantayog', 'Cormorant Garamond', Georgia, serif;
+}
+
+/* ─── RESET & BASE ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--cream);
+  color: var(--olive-dark);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ─── NAV ───────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: var(--cream);
+  border-bottom: 1px solid rgba(107, 122, 62, 0.18);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 48px;
+  height: 64px;
+}
+.nav-monogram {
+  font-family: var(--script);
+  font-size: 2rem;
+  color: var(--olive);
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--olive);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.nav-links a:hover,
+.nav-links a.active { opacity: 1; border-bottom: 1px solid var(--olive); padding-bottom: 2px; }
+.nav-links a { opacity: 0.7; }
+
+/* ─── PAGE WRAPPER ──────────────────────────────────────────── */
+.page {
+  padding-top: 64px;
+  min-height: 100vh;
+}
+
+/* ─── PAGE HERO BANNER ──────────────────────────────────────── */
+.page-hero {
+  background: var(--cream);
+  text-align: center;
+  padding: 72px 24px 56px;
+  border-bottom: 1px solid rgba(107, 122, 62, 0.12);
+}
+.page-hero-label {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--olive);
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+.page-hero-title {
+  font-family: var(--script);
+  font-size: clamp(3rem, 7vw, 5rem);
+  color: var(--olive);
+  line-height: 1.1;
+}
+
+/* ─── SECTION SHARED ────────────────────────────────────────── */
+.content-section {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+.content-section.centered { text-align: center; }
+
+.section-label {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--olive);
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+.section-title {
+  font-family: var(--script);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  color: var(--olive);
+  margin-bottom: 28px;
+  line-height: 1.1;
+}
+.section-body {
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--olive-dark);
+  opacity: 0.82;
+}
+
+/* ─── FLORAL DIVIDER ────────────────────────────────────────── */
+.floral-divider {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0 24px;
+  opacity: 0.5;
+}
+
+/* ─── PHOTO PLACEHOLDER ─────────────────────────────────────── */
+.photo-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: var(--cream-dark);
+  border: 1px solid rgba(107, 122, 62, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40px 0;
+}
+.photo-placeholder span {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--olive);
+  opacity: 0.4;
+}
+
+/* ─── CARDS ─────────────────────────────────────────────────── */
+.card-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 40px;
+}
+.card {
+  border: 1px solid rgba(107, 122, 62, 0.2);
+  padding: 32px 28px;
+  background: var(--white);
+}
+.card-title {
+  font-family: var(--script);
+  font-size: 2rem;
+  color: var(--olive);
+  margin-bottom: 16px;
+  line-height: 1;
+}
+.card-detail {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--olive-dark);
+  opacity: 0.75;
+  line-height: 2;
+}
+.card-detail strong {
+  display: block;
+  opacity: 1;
+  color: var(--olive);
+  margin-bottom: 6px;
+}
+
+/* dark card variant */
+.card.dark {
+  background: var(--olive);
+}
+.card.dark .card-title,
+.card.dark .card-detail,
+.card.dark strong { color: var(--cream); opacity: 1; }
+.card.dark .card-detail { opacity: 0.8; }
+
+/* ─── REGISTRY LINKS ────────────────────────────────────────── */
+.registry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 40px;
+}
+.registry-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(107, 122, 62, 0.22);
+  padding: 20px 28px;
+  text-decoration: none;
+  color: var(--olive);
+  transition: background 0.2s;
+}
+.registry-link:hover { background: var(--cream-dark); }
+.registry-link-name {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.registry-link-arrow { opacity: 0.45; }
+
+/* ─── RSVP BUTTON ───────────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  background: var(--olive);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 18px 52px;
+  transition: background 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.btn:hover { background: var(--olive-dark); }
+.btn.outline {
+  background: transparent;
+  border: 1px solid var(--olive);
+  color: var(--olive);
+}
+.btn.outline:hover { background: var(--cream-dark); }
+
+/* ─── FOOTER ────────────────────────────────────────────────── */
+footer {
+  background: var(--olive-dark);
+  color: var(--cream);
+  text-align: center;
+  padding: 40px 24px;
+  margin-top: 60px;
+}
+.footer-names {
+  font-family: var(--script);
+  font-size: 2.2rem;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+.footer-date {
+  font-family: var(--sans);
+  font-size: 0.58rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* ─── RESPONSIVE ────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  nav { padding: 0 20px; }
+  .nav-links { gap: 16px; }
+  .nav-links a { font-size: 0.55rem; letter-spacing: 0.1em; }
+  .card-grid-2 { grid-template-columns: 1fr; }
+}
+
+</style>
+  <style>
+    .schedule-hero {
+      background: var(--olive);
+      text-align: center;
+      padding: 72px 24px 56px;
+      border-bottom: 1px solid rgba(245,240,232,0.12);
+    }
+    .schedule-hero .page-hero-label { color: var(--cream); }
+    .schedule-hero .page-hero-title { color: var(--cream); }
+
+    .schedule-date-bar {
+      background: var(--cream-dark);
+      text-align: center;
+      padding: 18px;
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--olive);
+      border-bottom: 1px solid rgba(107,122,62,0.12);
+    }
+
+    .schedule-block {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+
+    .event-card {
+      border: 1px solid rgba(107,122,62,0.18);
+      background: var(--white);
+      padding: 44px 44px;
+      margin-bottom: 28px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .event-card.dark {
+      background: var(--olive);
+      border-color: transparent;
+    }
+    .event-time-col {
+      text-align: right;
+      border-right: 1px solid rgba(107,122,62,0.18);
+      padding-right: 40px;
+    }
+    .event-card.dark .event-time-col {
+      border-right-color: rgba(245,240,232,0.25);
+    }
+    .event-time {
+      font-family: var(--script);
+      font-size: 2.8rem;
+      color: var(--olive);
+      line-height: 1;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .event-card.dark .event-time { color: var(--cream); }
+    .event-time-label {
+      font-family: var(--sans);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--olive);
+      opacity: 0.55;
+    }
+    .event-card.dark .event-time-label { color: var(--cream); }
+
+    .event-info-col { padding-left: 0; }
+    .event-title {
+      font-family: var(--script);
+      font-size: 2.2rem;
+      color: var(--olive);
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .event-card.dark .event-title { color: var(--cream); }
+    .event-detail {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--olive-dark);
+      opacity: 0.7;
+      line-height: 2.1;
+    }
+    .event-card.dark .event-detail { color: var(--cream); opacity: 0.8; }
+    .event-note {
+      margin-top: 16px;
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--olive-dark);
+      opacity: 0.65;
+      line-height: 1.75;
+    }
+    .event-card.dark .event-note { color: var(--cream); opacity: 0.7; }
+
+    .schedule-footer-note {
+      text-align: center;
+      font-family: var(--sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--olive);
+      opacity: 0.5;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .event-card {
+        grid-template-columns: 1fr;
+        padding: 28px;
+        gap: 20px;
+      }
+      .event-time-col {
+        text-align: left;
+        border-right: none;
+        border-bottom: 1px solid rgba(107,122,62,0.18);
+        padding-right: 0;
+        padding-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-monogram" href="index.html">E & X</a>
+    <ul class="nav-links">
+      <li><a href="our-story.html">Our Story</a></li>
+      <li><a href="schedule.html" class="active">Schedule</a></li>
+      <li><a href="travel.html">Travel</a></li>
+      <li><a href="registry.html">Registry</a></li>
+      <li><a href="rsvp.html">RSVP</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+
+    <div class="schedule-hero">
+      <p class="page-hero-label">August 22, 2026</p>
+      <h1 class="page-hero-title">The Day</h1>
+    </div>
+
+    <div class="schedule-date-bar">
+      Saturday · August 22, 2026 · Oakland &amp; Danville, California
+    </div>
+
+    <div class="schedule-block">
+
+      <!-- Temple Sealing -->
+      <div class="event-card dark">
+        <div class="event-time-col">
+          <span class="event-time">Noon</span>
+          <span class="event-time-label">Please arrive<br>by 11:30 am</span>
+        </div>
+        <div class="event-info-col">
+          <div class="event-title">Temple Sealing</div>
+          <div class="event-detail">
+            Oakland California Temple<br>
+            4770 Lincoln Ave, Oakland, CA
+          </div>
+          <p class="event-note">
+            The temple sealing is a sacred ceremony open to those with a current temple recommend. 
+            We are so grateful for your love and support — you'll be in our hearts whether 
+            inside the temple or waiting outside to celebrate with us.
+          </p>
+        </div>
+      </div>
+
+      <!-- Cocktail Hour -->
+      <div class="event-card">
+        <div class="event-time-col">
+          <span class="event-time">6 pm</span>
+          <span class="event-time-label">Cocktail<br>Hour</span>
+        </div>
+        <div class="event-info-col">
+          <div class="event-title">Cocktail Hour</div>
+          <div class="event-detail">
+            1242 Address Here<br>
+            Danville, California
+          </div>
+          <p class="event-note">
+            Join us for a relaxed cocktail hour in the garden before dinner. 
+            Light bites and drinks will be served.
+          </p>
+        </div>
+      </div>
+
+      <!-- Reception Dinner -->
+      <div class="event-card dark">
+        <div class="event-time-col">
+          <span class="event-time">7 pm</span>
+          <span class="event-time-label">Reception<br>Dinner</span>
+        </div>
+        <div class="event-info-col">
+          <div class="event-title">Reception Dinner</div>
+          <div class="event-detail">
+            1242 Address Here<br>
+            Danville, California<br><br>
+            Parking · Livery Shopping Center<br>
+            Shuttle Provided
+          </div>
+          <p class="event-note">
+            Dinner, dancing, and celebrating until late. 
+            Shuttle service runs continuously between the Livery Shopping Center 
+            and the venue throughout the evening.
+          </p>
+        </div>
+      </div>
+
+      <p class="schedule-footer-note">More details to follow closer to the date</p>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-names">Ella &amp; Xander</div>
+    <p class="footer-date">August 22 · 2026 · Danville, California</p>
+  </footer>
+
+</body>
+</html>
