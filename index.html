@@ -315,13 +315,11 @@ footer {
       padding: 32px 24px;
     }
     .hero-invite {
-      height: calc(100vh - 64px - 64px);
+      max-height: calc(100vh - 64px - 64px);
       max-width: 100%;
-      object-fit: contain;
+      width: auto;
+      height: auto;
       display: block;
-    }
-    @media (max-width: 600px) {
-      .hero-invite { height: auto; width: 100%; }
     }
   </style>
 </head>
