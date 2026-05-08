@@ -358,6 +358,78 @@ footer {
       opacity: 0.4;
       margin: 48px 0;
     }
+
+    /* ── Photo images ── */
+    .story-img-full {
+      width: 100%;
+      max-width: 680px;
+      display: block;
+      margin: 0 auto 56px;
+      object-fit: cover;
+    }
+    .story-img-single {
+      width: 100%;
+      max-width: 520px;
+      display: block;
+      margin: 40px auto 0;
+      object-fit: cover;
+    }
+
+    /* ── Slideshow ── */
+    .story-slideshow {
+      position: relative;
+      width: 100%;
+      margin: 32px 0 0;
+      overflow: hidden;
+      background: var(--cream-dark);
+    }
+    .story-slideshow-track {
+      display: flex;
+      transition: transform 0.45s ease;
+    }
+    .story-slide {
+      min-width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .slide-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(253,250,245,0.8);
+      border: none;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      font-size: 1rem;
+      color: var(--olive);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .slide-btn:hover { background: rgba(253,250,245,0.97); }
+    .slide-btn.prev { left: 12px; }
+    .slide-btn.next { right: 12px; }
+    .slide-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 0;
+    }
+    .slide-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--olive);
+      opacity: 0.25;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      padding: 0;
+    }
+    .slide-dot.active { opacity: 0.65; }
   </style>
 </head>
 <body>
@@ -382,10 +454,8 @@ footer {
 
     <div class="content-section centered">
 
-      <!-- Main engagement photo -->
-      <div class="photo-placeholder story-photo-full">
-        <span>Engagement Photo</span>
-      </div>
+      <!-- Main photo -->
+      <img src="images/twirl.jpg" alt="Ella & Xander" class="story-img-full">
 
       <!-- Chapter 1: How We Met -->
       <div class="story-chapter">
@@ -400,6 +470,28 @@ footer {
         </p>
       </div>
 
+      <!-- Slideshow: How We Met -->
+      <div class="story-slideshow" id="howWeMetSlideshow">
+        <div class="story-slideshow-track">
+          <img class="story-slide" src="images/Slide2.JPG" alt="">
+          <img class="story-slide" src="images/Slide3.JPG" alt="">
+          <img class="story-slide" src="images/Slide4.JPG" alt="">
+          <img class="story-slide" src="images/Slide5.JPG" alt="">
+          <img class="story-slide" src="images/Slide6.JPG" alt="">
+          <img class="story-slide" src="images/Slide7.JPG" alt="">
+        </div>
+        <button class="slide-btn prev" aria-label="Previous">&#8592;</button>
+        <button class="slide-btn next" aria-label="Next">&#8594;</button>
+        <div class="slide-dots">
+          <button class="slide-dot active"></button>
+          <button class="slide-dot"></button>
+          <button class="slide-dot"></button>
+          <button class="slide-dot"></button>
+          <button class="slide-dot"></button>
+          <button class="slide-dot"></button>
+        </div>
+      </div>
+
       <!-- Floral divider -->
       <div class="floral-center">
         <svg width="180" height="28" viewBox="0 0 180 28" fill="none">
@@ -410,12 +502,6 @@ footer {
           <circle cx="48" cy="14" r="2" stroke="#6B7A3E" stroke-width="0.5"/>
           <circle cx="132" cy="14" r="2" stroke="#6B7A3E" stroke-width="0.5"/>
         </svg>
-      </div>
-
-      <!-- Photo pair -->
-      <div class="story-photo-pair">
-        <div class="photo-placeholder"><span>Photo</span></div>
-        <div class="photo-placeholder"><span>Photo</span></div>
       </div>
 
       <!-- Chapter 2: The Wedding -->
@@ -442,10 +528,8 @@ footer {
         </svg>
       </div>
 
-      <!-- Engagement photo 2 -->
-      <div class="photo-placeholder" style="max-width:520px;margin:0 auto;">
-        <span>Engagement Photo</span>
-      </div>
+      <!-- Ring photo -->
+      <img src="images/ring.jpeg" alt="The ring" class="story-img-single">
 
     </div>
   </div>
@@ -455,5 +539,28 @@ footer {
     <p class="footer-date">August 22 · 2026 · Danville, California</p>
   </footer>
 
+  <script>
+    document.querySelectorAll('.story-slideshow').forEach(function(container) {
+      var track = container.querySelector('.story-slideshow-track');
+      var slides = container.querySelectorAll('.story-slide');
+      var dots = container.querySelectorAll('.slide-dot');
+      var total = slides.length;
+      var current = 0;
+
+      function goTo(n) {
+        current = (n + total) % total;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
+      }
+
+      container.querySelector('.prev').addEventListener('click', function() { goTo(current - 1); });
+      container.querySelector('.next').addEventListener('click', function() { goTo(current + 1); });
+      dots.forEach(function(d, i) { d.addEventListener('click', function() { goTo(i); }); });
+
+      var timer = setInterval(function() { goTo(current + 1); }, 5000);
+      container.addEventListener('mouseenter', function() { clearInterval(timer); });
+      container.addEventListener('mouseleave', function() { timer = setInterval(function() { goTo(current + 1); }, 5000); });
+    });
+  </script>
 </body>
 </html>
