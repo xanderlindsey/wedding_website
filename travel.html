@@ -385,8 +385,10 @@ footer {
     @media (max-width: 600px) {
       .travel-grid { grid-template-columns: 1fr; }
       .hotel-block { padding: 32px 24px; }
-      .travel-card          { background: var(--white); }
-      .travel-card:nth-child(even) { background: var(--cream-dark); }
+      .travel-card,
+      .travel-card.accent                    { background: var(--white); }
+      .travel-card:nth-child(even),
+      .travel-card.accent:nth-child(even)    { background: var(--cream-dark); }
     }
   </style>
 </head>
